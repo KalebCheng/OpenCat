@@ -91,8 +91,13 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: opencat-${{ matrix.name }}
-          # Covers both the plain and the `--target`-scoped output layouts.
+          # `cargo metadata` reports the workspace root as the target directory,
+          # so bundles land in `<repo>/target`, not `<repo>/src-tauri/target`.
+          # Both layouts are listed so a change in either direction still works,
+          # and `target/*/release` covers the `--target <triple>` builds.
           path: |
+            target/release/bundle/**
+            target/*/release/bundle/**
             src-tauri/target/release/bundle/**
             src-tauri/target/*/release/bundle/**
           if-no-files-found: error
