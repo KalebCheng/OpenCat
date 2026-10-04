@@ -23,6 +23,13 @@ updates:
       # deliberate migration, not an automatic bump.
       - dependency-name: "sqlx"
         update-types: ["version-update:semver-major"]
+      # aes-gcm 0.11 sits on `aead` 0.6, which removed `OsRng` and
+      # `AeadCore::generate_nonce` — the whole random-number surface changed, so
+      # this is a migration rather than a version bump. `secrets.rs` only needs a
+      # key and a nonce, so the port is small; do it deliberately and then drop
+      # this rule. Tracked in the roadmap.
+      - dependency-name: "aes-gcm"
+        update-types: ["version-update:semver-major"]
 
   # --- Frontend -------------------------------------------------------------
   - package-ecosystem: npm
