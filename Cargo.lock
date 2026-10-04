@@ -2913,7 +2913,7 @@ dependencies = [
 name = "opencat"
 version = "0.1.0"
 dependencies = [
- "base64 0.22.1",
+ "base64 0.23.1",
  "chrono",
  "csv",
  "futures",
@@ -2939,7 +2939,7 @@ name = "opencat-core"
 version = "0.1.0"
 dependencies = [
  "aes-gcm",
- "base64 0.22.1",
+ "base64 0.23.1",
  "chrono",
  "indexmap 2.14.2",
  "once_cell",
