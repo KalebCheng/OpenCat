@@ -54,7 +54,6 @@ tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 bigdecimal = { version = "0.4", features = ["serde"] }
 base64 = "0.23"
 aes-gcm = "0.10"
-rand = "0.10"
 csv = "1.3"
 regex = "1"
 once_cell = "1"

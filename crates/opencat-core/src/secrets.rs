@@ -12,7 +12,6 @@ use std::path::{Path, PathBuf};
 use aes_gcm::aead::{Aead, KeyInit, OsRng};
 use aes_gcm::{AeadCore, Aes256Gcm, Key, Nonce};
 use base64::Engine as _;
-use rand::RngCore;
 
 use crate::error::{CoreError, Result};
 
@@ -48,8 +47,13 @@ impl SecretStore {
                 .try_into()
                 .map_err(|_| CoreError::Config("master key has the wrong length".into()))?
         } else {
+            // `generate_key` comes from the same `aead`/`rand_core` pair as
+            // `OsRng` below, so there is exactly one RNG in play. Pulling
+            // `RngCore` from the `rand` crate instead would mix two `rand_core`
+            // versions and silently fail to compile.
+            let generated = Aes256Gcm::generate_key(&mut OsRng);
             let mut buf = [0u8; 32];
-            OsRng.fill_bytes(&mut buf);
+            buf.copy_from_slice(&generated);
             let encoded = base64::engine::general_purpose::STANDARD.encode(buf);
             write_private(&key_path, encoded.as_bytes())?;
             buf

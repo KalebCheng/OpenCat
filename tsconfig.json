@@ -23,7 +23,10 @@
 
     "types": ["node", "vite/client"],
 
-    "baseUrl": ".",
+    // TypeScript 7 removed `baseUrl`. Paths are resolved relative to this file
+    // when it is absent, and these mappings were already relative, so the
+    // alias behaves exactly as before. Vite has its own copy of the alias in
+    // vite.config.ts and does not read this.
     "paths": {
       "@/*": ["./src/*"]
     }
