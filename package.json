@@ -1,7 +1,7 @@
 {
   "name": "opencat",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.0.1",
   "description": "OpenCat — a modern, cross-platform database client (Navicat-style)",
   "type": "module",
   "license": "Apache-2.0",

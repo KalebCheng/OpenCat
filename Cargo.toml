@@ -8,7 +8,7 @@ members = [
 default-members = ["crates/opencat-core", "crates/opencat-driver", "src-tauri"]
 
 [workspace.package]
-version = "0.1.0"
+version = "0.0.1"
 edition = "2021"
 rust-version = "1.80"
 license = "Apache-2.0"
