@@ -1,0 +1,28 @@
+# rustfmt configuration.
+#
+# Only stable options are used here so that `cargo fmt --check` behaves
+# identically on stable Rust and in CI. Options such as `imports_granularity` or
+# `group_imports` require a nightly toolchain and `unstable_features = true`.
+
+edition = "2021"
+
+# The project targets a comfortable reading width without wrapping aggressively.
+max_width = 100
+tab_spaces = 4
+
+# Repositories are checked out with LF everywhere; see .gitattributes.
+newline_style = "Unix"
+
+# Keep `use` blocks and `mod` declarations sorted so diffs stay small.
+reorder_imports = true
+reorder_modules = true
+
+# `#[derive(A, B)]` on one line rather than one per row.
+merge_derives = true
+
+# Allow short functions and structs to stay on one line; the default heuristics
+# are a good fit for this codebase's style.
+use_small_heuristics = "Default"
+
+# Trailing commas make future diffs a one-line change.
+match_block_trailing_comma = true

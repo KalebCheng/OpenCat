@@ -1,0 +1,56 @@
+# Dependency updates.
+#
+# Grouped and weekly so the repository gets a manageable number of pull requests
+# rather than one per transitive dependency.
+
+version: 2
+updates:
+  # --- Rust -----------------------------------------------------------------
+  - package-ecosystem: cargo
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "chore(deps)"
+    groups:
+      rust-minor:
+        patterns: ["*"]
+        update-types: ["minor", "patch"]
+    ignore:
+      # sqlx releases are tied to a specific set of database features and need a
+      # deliberate migration, not an automatic bump.
+      - dependency-name: "sqlx"
+        update-types: ["version-update:semver-major"]
+
+  # --- Frontend -------------------------------------------------------------
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "chore(deps)"
+    groups:
+      frontend-minor:
+        patterns: ["*"]
+        update-types: ["minor", "patch"]
+    ignore:
+      # React major versions need a deliberate migration pass.
+      - dependency-name: "react"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react-dom"
+        update-types: ["version-update:semver-major"]
+
+  # --- CI -------------------------------------------------------------------
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: monthly
+    commit-message:
+      prefix: "chore(ci)"
+    groups:
+      actions:
+        patterns: ["*"]

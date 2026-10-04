@@ -1,0 +1,95 @@
+# ============================================================================
+#  OpenCat — .gitignore
+# ============================================================================
+#  Nothing below is needed to build the project. `examples/demo.db` and both
+#  lockfiles (Cargo.lock, pnpm-lock.yaml) are deliberately tracked.
+# ============================================================================
+
+
+# --- Rust / Cargo -----------------------------------------------------------
+/target/
+**/target/
+*.rs.bk
+*.pdb
+*.profraw
+# Cargo's build-script scratch directory, used when the platform temp directory
+# is not writable (see README → Troubleshooting).
+.build-tmp/
+
+
+# --- Tauri ------------------------------------------------------------------
+# Generated at build time from tauri.conf.json and capabilities/*.json.
+/src-tauri/gen/
+# Bundled installers and the staged app directory.
+/src-tauri/target/
+/src-tauri/.tauri/
+
+
+# --- Node / frontend --------------------------------------------------------
+node_modules/
+.pnpm-store/
+.pnpm-debug.log*
+npm-debug.log*
+yarn-error.log*
+# Vite output.
+/dist/
+/dist-ssr/
+# Vite / TypeScript incremental caches.
+.vite/
+*.tsbuildinfo
+.eslintcache
+
+
+# --- OpenCat local data -----------------------------------------------------
+# Connection profiles, settings, history and the WebView2 profile live here when
+# the platform app-data directories are unavailable. Never commit them: the
+# workspace contains an encryption key, and connections may embed credentials.
+/.opencat-data/
+/.dev-data/
+# SQLite sidecar files (but not the database files themselves).
+*.db-shm
+*.db-wal
+*.sqlite-shm
+*.sqlite-wal
+
+
+# --- Secrets and local configuration ---------------------------------------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+!.gitignore
+
+
+# --- Editors ----------------------------------------------------------------
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+*.swp
+*.swo
+*~
+\#*\#
+.\#*
+.#*
+
+
+# --- Operating systems ------------------------------------------------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+
+# --- Logs and crash dumps ---------------------------------------------------
+*.log
+logs/
+*.dmp
+crashdumps/

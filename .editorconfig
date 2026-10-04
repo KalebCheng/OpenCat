@@ -1,0 +1,51 @@
+# EditorConfig — https://editorconfig.org
+#
+# Keeps editors consistent with rustfmt, Prettier-free TypeScript formatting and
+# the repository's LF line endings.
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 4
+
+[*.{rs}]
+indent_size = 4
+max_line_length = 100
+
+[*.{ts,tsx,js,jsx,mjs,cjs,json,jsonc}]
+indent_size = 2
+max_line_length = 100
+
+[*.{css,scss}]
+indent_size = 2
+
+[*.{html,svg}]
+indent_size = 2
+
+[*.{yml,yaml}]
+indent_size = 2
+
+[*.md]
+# Markdown uses two trailing spaces as a hard line break, and tables are laid
+# out by hand.
+trim_trailing_whitespace = false
+indent_size = 2
+
+[*.toml]
+indent_size = 2
+
+[*.py]
+indent_size = 4
+
+[Makefile]
+indent_style = tab
+
+# Binary-ish files: never normalise their contents.
+[*.{png,ico,icns,jpg,jpeg,gif,webp,db,sqlite,woff,woff2,ttf,otf}]
+insert_final_newline = false
+trim_trailing_whitespace = false

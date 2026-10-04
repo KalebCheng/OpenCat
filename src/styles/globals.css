@@ -1,0 +1,304 @@
+@import "tailwindcss";
+
+/* The app shell drives dark mode with a class on <html> so the theme can be
+   applied before first paint (see the inline script in index.html). */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---------------------------------------------------------------------------
+   Design tokens
+   ---------------------------------------------------------------------------
+   Semantic names, not literal colours: components say `bg-surface` and
+   `text-muted`, and the palette below decides what that means in each theme.
+   Accent is overridable at runtime by setting `--accent` on :root.
+--------------------------------------------------------------------------- */
+
+:root {
+  color-scheme: light;
+
+  --canvas: #f4f5f7;
+  --surface: #ffffff;
+  --surface-raised: #ffffff;
+  --surface-sunken: #eceef2;
+  --surface-hover: #f1f2f6;
+  --surface-active: #e7e9ef;
+
+  --border: #e2e5eb;
+  --border-strong: #cfd4dd;
+
+  --fg: #171921;
+  --fg-muted: #5c6373;
+  --fg-subtle: #8f96a5;
+  --fg-inverted: #ffffff;
+
+  --accent: #7c3aed;
+  --accent-hover: #6d28d9;
+  --accent-soft: #f1e9ff;
+  --accent-fg: #ffffff;
+
+  --danger: #dc2626;
+  --danger-soft: #fee2e2;
+  --success: #16a34a;
+  --success-soft: #dcfce7;
+  --warning: #d97706;
+  --warning-soft: #fef3c7;
+  --info: #2563eb;
+  --info-soft: #dbeafe;
+
+  --grid-null: #a3a9b6;
+  --grid-row-alt: #fafbfc;
+  --grid-row-hover: #f2f0fe;
+  --grid-row-selected: #e6e0fd;
+  --grid-header: #f7f8fa;
+
+  --ring: #7c3aed66;
+  --shadow-color: 220 20% 40%;
+}
+
+.dark {
+  color-scheme: dark;
+
+  --canvas: #0d0e12;
+  --surface: #15171d;
+  --surface-raised: #1a1d24;
+  --surface-sunken: #101116;
+  --surface-hover: #1e212a;
+  --surface-active: #262a35;
+
+  --border: #262a34;
+  --border-strong: #363b48;
+
+  --fg: #e8eaf0;
+  --fg-muted: #9ba2b2;
+  --fg-subtle: #6d7486;
+  --fg-inverted: #0d0e12;
+
+  --accent: #8b5cf6;
+  --accent-hover: #a78bfa;
+  --accent-soft: #2a2144;
+  --accent-fg: #ffffff;
+
+  --danger: #f87171;
+  --danger-soft: #3a1d1d;
+  --success: #4ade80;
+  --success-soft: #14301f;
+  --warning: #fbbf24;
+  --warning-soft: #3a2c12;
+  --info: #60a5fa;
+  --info-soft: #16273f;
+
+  --grid-null: #5b6272;
+  --grid-row-alt: #171a21;
+  --grid-row-hover: #1f2230;
+  --grid-row-selected: #2a2344;
+  --grid-header: #191c23;
+
+  --ring: #8b5cf666;
+  --shadow-color: 240 30% 3%;
+}
+
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-raised: var(--surface-raised);
+  --color-sunken: var(--surface-sunken);
+  --color-hover: var(--surface-hover);
+  --color-active: var(--surface-active);
+
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+
+  --color-fg: var(--fg);
+  --color-muted: var(--fg-muted);
+  --color-subtle: var(--fg-subtle);
+  --color-inverted: var(--fg-inverted);
+
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-fg: var(--accent-fg);
+
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-info: var(--info);
+  --color-info-soft: var(--info-soft);
+
+  --color-grid-null: var(--grid-null);
+  --color-grid-alt: var(--grid-row-alt);
+  --color-grid-hover: var(--grid-row-hover);
+  --color-grid-selected: var(--grid-row-selected);
+  --color-grid-header: var(--grid-header);
+
+  --font-sans:
+    "Inter var", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei UI", "Noto Sans SC",
+    sans-serif;
+  --font-mono:
+    "JetBrains Mono", "Cascadia Code", "SFMono-Regular", Consolas,
+    "Liberation Mono", monospace;
+
+  --radius-xs: 3px;
+  --radius-sm: 5px;
+  --radius-md: 7px;
+  --radius-lg: 10px;
+  --radius-xl: 14px;
+
+  --shadow-panel: 0 1px 2px hsl(var(--shadow-color) / 0.06),
+    0 8px 24px -12px hsl(var(--shadow-color) / 0.18);
+  --shadow-popover: 0 4px 12px -2px hsl(var(--shadow-color) / 0.16),
+    0 16px 40px -12px hsl(var(--shadow-color) / 0.28);
+
+  --animate-fade-in: fade-in 120ms ease-out;
+  --animate-scale-in: scale-in 120ms ease-out;
+  --animate-slide-up: slide-up 160ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Base
+--------------------------------------------------------------------------- */
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  body {
+    background-color: var(--canvas);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    font-size: 13px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* The desktop shell should not behave like a web page. */
+  :root {
+    user-select: none;
+    cursor: default;
+  }
+
+  input,
+  textarea,
+  [contenteditable="true"],
+  .selectable {
+    user-select: text;
+  }
+
+  button {
+    cursor: default;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 1px;
+  }
+
+  ::selection {
+    background: var(--accent-soft);
+    color: var(--fg);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Scrollbars
+--------------------------------------------------------------------------- */
+
+@layer utilities {
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-strong) transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: var(--border-strong);
+    border: 3px solid transparent;
+    border-radius: 999px;
+    background-clip: content-box;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background-color: var(--fg-subtle);
+    background-clip: content-box;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
+  /** The draggable strip at the top of a frameless-ish window. */
+  .drag-region {
+    -webkit-app-region: drag;
+    app-region: drag;
+  }
+
+  .no-drag {
+    -webkit-app-region: no-drag;
+    app-region: no-drag;
+  }
+
+  /** Tabular numerals keep grid columns from jittering while editing. */
+  .tnum {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .animate-spin-slow {
+    animation: spin 900ms linear infinite;
+  }
+}
