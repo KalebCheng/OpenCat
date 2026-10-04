@@ -40,7 +40,7 @@ jobs:
             args: "--target universal-apple-darwin"
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Install Linux dependencies
         if: matrix.platform == 'ubuntu-22.04'
@@ -56,11 +56,11 @@ jobs:
             build-essential \
             curl wget file patchelf
 
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v6
         with:
           version: 10
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 20
           cache: pnpm
@@ -81,14 +81,14 @@ jobs:
       # `tauri-action` runs `beforeBuildCommand` (pnpm build) itself, then
       # `tauri build` with the arguments below.
       - name: Build the app
-        uses: tauri-apps/tauri-action@v0
+        uses: tauri-apps/tauri-action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           args: ${{ matrix.args }}
 
       - name: Upload installers
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: opencat-${{ matrix.name }}
           # `cargo metadata` reports the workspace root as the target directory,
